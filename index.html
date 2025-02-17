@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/hyperscript.org@0.9.14"></script>
+  <title>BarDevTools</title>
+</head>
+
+<body>
+  <header>
+    <h1>Beyond All Reason Dev Tooling</h1>
+    <nav id="tools" aria-label="List of tools" role="list">
+      <ul>
+        <li>
+          <a href="#background builder">
+            Background Builder
+          </a>
+        </li>
+        <li>
+          <a href="#text builder">
+            Text Builder
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <div class="section-title">
+        <h2>Background Builder</h2>
+      </div>
+      <div class="dynamic-view">
+        <h3>Display</h3>
+        <div class="view-content">
+          <div id="parent" class="parent">
+            <div id="content" class="content">some content</div>
+            <div id="bg-wrapper" class="bg-wrapper">
+              <div id="bg-inner" class="bg-inner"></div>
+            </div>
+          </div>
+        </div>
+        <fieldset>
+          <legend>HTML</legend>
+          <pre id="html-output"></pre>
+        </fieldset>
+      </div>
+      <form id="background-builder-controls" class="controls"
+        _="on input call window.utils.updateOutput()">
+        <h3>Controls</h3>
+        <div class="fieldsets">
+          <fieldset>
+            <legend>Parent (#parent)</legend>
+            <!-- overflow bool -->
+            <div class="field">
+              <label for="overflow">Overflow Hidden</label>
+              <input type="checkbox" id="overflow" name="overflow"
+                _="on change if event.target.checked set #parent.style.overflow to 'hidden' else set #parent.style.overflow to 'visible'" />
+            </div>
+            <!-- width, height -->
+            <div class="field">
+              <label for="width">Width</label>
+              <input type="range" id="width" name="width" min="0" max="300" value="100"
+                _="on input set #parent.style.width to event.target.value + 'px'" />
+            </div>
+            <div class="field">
+              <label for="height">Height</label>
+              <input type="range" id="height" name="height" min="0" max="300" value="100"
+                _="on input set #parent.style.height to event.target.value + 'px'" />
+            </div>
+            <div class="field">
+              <label for="font-color">Font Color</label>
+              <input type="color" id="font-color" name="font-color" value="#000000"
+                _="on input set #content.style.color to event.target.value" />
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Inner (#bg-inner)</legend>
+            <div class="field">
+              <label for="bg-color">Text</label>
+              <input type="color" id="inner-color" name="inner-color" value="#000000"
+                _="on input set #bg-inner.style.backgroundColor to event.target.value" />
+            </div>
+            <div class="field">
+              <label for="inner-border-color">Border Color</label>
+              <input type="color" id="inner-border-color" name="inner-border-color" value="#000000"
+                _="on input set #bg-inner.style.borderColor to event.target.value" />
+            </div>
+            <div class="field">
+              <label for="inner-border-width">Border Width</label>
+              <input type="range" id="inner-border-width" name="inner-border-width" min="0" max="50" value="0"
+                _="on input set #bg-inner.style.borderWidth to event.target.value + 'px'" />
+            </div>
+            <!-- width, height -->
+            <div class="field">
+              <label for="inner-width">Width</label>
+              <input type="range" id="inner-width" name="inner-width" min="0" max="400" value="50"
+                _="on input set #bg-inner.style.width to event.target.value + 'px'" />
+            </div>
+            <div class="field">
+              <label for="inner-height">Height</label>
+              <input type="range" id="inner-height" name="inner-height" min="0" max="400" value="50"
+                _="on input set #bg-inner.style.height to event.target.value + 'px'" />
+            </div>
+            <div class="field">
+              <label for="inner-opacity">Opacity</label>
+              <input type="range" id="inner-opacity" name="inner-opacity" min="0" max="1" step="0.01" value="0.5"
+                _="on input set #bg-inner.style.opacity to event.target.value" />
+            </div>
+            <!-- angle -->
+            <div class="field">
+              <label for="inner-angle">Angle (<span id="current-angle">45</span>)</label>
+              <input type="range" id="inner-angle" name="inner-angle" min="0" max="16" value="1" _="on input set #bg-inner.style.transform to 'rotate(' + (event.target.value as an Int * 22.5) as a String + 'deg)'
+                      then set #current-angle.textContent to (event.target.value as an Int * 22.5) as a String" />
+            </div>
+            <div class="field">
+              <label for="inner-x">X</label>
+              <input type="range" id="inner-x" name="inner-x" min="-300" max="300" value="50"
+                _="on input set #bg-inner.style.left to event.target.value + 'px'" />
+            </div>
+            <div class="field">
+              <label for="inner-y">Y</label>
+              <input type="range" id="inner-y" name="inner-y" min="-300" max="300" value="50"
+                _="on input set #bg-inner.style.top to event.target.value + 'px'" />
+            </div>
+          </fieldset>
+      </form>
+    </div>
+    <div class="output">
+      <fieldset class="output-fieldset">
+        <legend>CSS</legend>
+        <pre id="css-output"></pre>
+      </fieldset>
+    </div>
+    </section>
+  </main>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>
