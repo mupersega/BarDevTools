@@ -208,10 +208,12 @@ label {
 }
 
 .fieldsets {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: "a b" "c b";
   gap: 1rem;
-  padding-top: 1rem;
+  padding-top: 1rem; 
 }
 
 .field {
@@ -248,21 +250,18 @@ label {
   position: relative;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   padding: 0.5rem;
   box-shadow: inset 0 0 2px 0 rgb(68, 255, 51);
+  justify-content: flex-start;
+  align-items: center;
   overflow: visible;
-  width: 100px;
+  width: 150px;
+  height: 50px;
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
   z-index: 1;
+  color: #222222;
 }
 
 .bg-wrapper {
@@ -275,10 +274,10 @@ label {
 
 .bg-inner {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 50px;
-  height: 50px;
+  top: -80px;
+  left: -30px;
+  width: 150px;
+  height: 150px;
   transform: rotate(45deg);
   border-color: #666666;
   border-style: solid;
@@ -296,6 +295,15 @@ label {
   box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 0.9);
 }
 
+.parent-controls {
+  grid-area: a;
+}
+.bg-inner-controls {
+  grid-area: b;
+}
+.content-controls {
+  grid-area: c;
+}
 .dynamic-view {
   display: flex;
   flex-direction: column;
@@ -334,6 +342,7 @@ label {
 
 
 .field.toggle{
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -349,7 +358,30 @@ label {
   user-select: none;
   text-shadow: 1px 1px 7px rgba(255, 255, 255, 0.65);
   padding: 0;
+  &::after {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    content: "Off";
+    color: #ccc;
+    pointer-events: none;
+    font-size: 0.75rem;
+  }
 }
+
+/* animate field.toggle box-shadow */
+@keyframes shadow-pulse {
+  0% {
+    box-shadow: 3px 3px 0px 0px rgb(34, 255, 34);
+  }
+  50% {
+    box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 0.9);
+  }
+  100% {
+    box-shadow: 3px 3px 0px 0px rgb(34, 255, 34);
+  }
+}
+
 
 .field.toggle:hover {
   border: 1px solid hsl(290, 100%, 20%);
@@ -371,6 +403,17 @@ label {
   box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.9);
   transform: translate(1px, 1px);
   text-shadow: 1px 1px 7px rgba(0, 0, 0, 0.84);
+  &::after {
+    position: absolute;
+    font-size: 0.75rem;
+    right: 5px;
+    top: 0;
+    height: 100%;
+    content: "On";
+    color: #333;
+    pointer-events: none;
+    /* padding: 0.5rem; */
+  }
 }
 
 .field.toggle.active:hover {

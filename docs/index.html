@@ -54,8 +54,8 @@
     window.addEventListener('load', checkAllLoaded);
   </script>
   <title>BarDevTools</title>
-  <script type="module" crossorigin src="/BarDevTools/assets/index-Cs5ztPmI.js"></script>
-  <link rel="stylesheet" crossorigin href="/BarDevTools/assets/index-DJtuOViN.css">
+  <script type="module" crossorigin src="/BarDevTools/assets/index-vM_S3qqm.js"></script>
+  <link rel="stylesheet" crossorigin href="/BarDevTools/assets/index-uATLayLw.css">
 </head>
 
 <body>
@@ -105,7 +105,7 @@
         on input call window.utils.updateOutput() on change call window.utils.updateOutput()">
         <h3>Controls</h3>
         <div class="fieldsets">
-          <fieldset>
+          <fieldset class="parent-controls">
             <legend>Parent (.parent)</legend>
             <div class="field toggle">
               <label for="overflow">Clip</label>
@@ -118,32 +118,25 @@
             <div class="field">
               <label for="width">Width
                 (
-                <span id="current-parent-width">100px</span>
+                <span id="current-parent-width">150px</span>
                 )
               </label>
-              <input type="range" id="width" name="width" min="0" max="300" value="100"
+              <input type="range" id="width" name="width" min="0" max="300" value="150"
                 _="on input set #parent.style.width to event.target.value + 'px'
                   then set #current-parent-width.textContent to event.target.value + 'px'" />
             </div>
             <div class="field">
               <label for="height">Height
                 (
-                <span id="current-parent-height">100px</span>
+                <span id="current-parent-height">50px</span>
                 )
               </label>
-              <input type="range" id="height" name="height" min="0" max="300" value="100"
+              <input type="range" id="height" name="height" min="0" max="300" value="50"
                 _="on input set #parent.style.height to event.target.value + 'px'
                   then set #current-parent-height.textContent to event.target.value + 'px'" />
             </div>
-            <div class="field">
-              <label for="font-color">Font Color</label>
-              <input type="color" id="font-color" name="font-color" value="#000000"
-                _="on input set #content.style.color to event.target.value" />
-            </div>
-            <!-- overflow bool -->
-
           </fieldset>
-          <fieldset>
+          <fieldset class="bg-inner-controls">
             <legend>Inner (.bg-inner)</legend>
             <div class="field">
               <label for="bg-color">Color</label>
@@ -217,6 +210,15 @@
               <input type="range" id="inner-border-width" name="inner-border-width" min="0" max="50" value="0"
                 _="on input set #bg-inner.style.borderWidth to event.target.value + 'px'" />
             </div>
+          </fieldset>
+          <fieldset class="content-controls">
+            <legend>Content (.content)</legend>
+            <div class="field">
+              <label for="font-color">Font Color</label>
+              <input type="color" id="font-color" name="font-color" value="#222222"
+                _="on input set #content.style.color to event.target.value" />
+            </div>
+
           </fieldset>
       </form>
       </div>
