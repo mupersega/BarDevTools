@@ -4,6 +4,7 @@ declare global {
   interface Window {
     utils: {
       updateOutput: () => void;
+      clampMyHeightTo: (me: HTMLElement, elementId: string, offset: number) => void;
     };
   }
 }
@@ -109,7 +110,7 @@ function formatNode(node: HTMLElement, level: number): string {
 const cssPropertiesToInclude: { [key: string]: string[] } = {
   'parent': [
     'position', 'display', 'flex-direction', 'justify-content', 'align-items',
-    'padding'
+    'padding', 'width', 'height'
   ],
   'content': [
     'display', 'flex-direction', 'justify-content', 'align-items', 'flex-wrap', 'z-index'
@@ -174,6 +175,29 @@ function convertMatrixToDegrees(matrix: string): string {
   const parts = values[1].split(',').map(parseFloat);
   const angle = Math.round(Math.atan2(parts[1], parts[0]) * (180 / Math.PI));
   return `rotate(${angle}deg)`;
+}
+
+
+window.utils.clampMyHeightTo = function (me: HTMLElement, elementId: string, offset: number) {
+  const element = document.getElementById(elementId);
+  if (!element) {
+    console.error(`Element with id ${elementId} not found`);
+    return;
+  }
+
+  // Get the height of each child element, not all descendants.
+  const children = element.children;
+  let totalHeight = 0;
+  for (let i = 0; i < children.length; i++) {
+    totalHeight += children[i].clientHeight;
+  }
+
+  // Add the offset
+  totalHeight += offset;
+
+  // Set the height of the parent element
+  me.style.display = 'flex';
+  me.style.height = `${totalHeight}px`;
 }
 
 // Run the update on load
