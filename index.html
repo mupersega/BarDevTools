@@ -99,35 +99,39 @@
           <pre id="html-output"></pre>
         </fieldset>
       </div>
-      <form id="background-builder-controls" class="controls" _="on input call window.utils.updateOutput()">
+      <form id="background-builder-controls" class="controls" _="on load wait 1s then call window.utils.updateOutput()
+        on input call window.utils.updateOutput() on change call window.utils.updateOutput()">
         <h3>Controls</h3>
         <div class="fieldsets">
           <fieldset>
-            <legend>Parent (#parent)</legend>
+            <legend>Parent (.parent)</legend>
             <div class="field toggle">
-              <label for="overflow">Hide Overflow</label>
-              <input type="checkbox" id="overflow" name="overflow" _="on change if event.target.checked set #parent.style.overflow to 'hidden'
-                      then add .active to closest .field
-                    else set #parent.style.overflow to 'visible'
-                      then remove .active from closest .field" />
+              <label for="overflow">Clip</label>
+              <input type="checkbox" id="overflow" name="overflow"
+                _="on change if event.target.checked set #parent.style.overflow to 'hidden'
+                  then add .active to closest .field
+                else set #parent.style.overflow to 'visible'
+                  then remove .active from closest .field" />
             </div>
             <div class="field">
               <label for="width">Width
                 (
-                <span id="current-width">100px</span>
+                <span id="current-parent-width">100px</span>
                 )
               </label>
-              <input type="range" id="width" name="width" min="0" max="300" value="100" _="on input set #parent.style.width to event.target.value + 'px'
-                   then set #current-width.textContent to event.target.value + 'px'" />
+              <input type="range" id="width" name="width" min="0" max="300" value="100"
+                _="on input set #parent.style.width to event.target.value + 'px'
+                  then set #current-parent-width.textContent to event.target.value + 'px'" />
             </div>
             <div class="field">
               <label for="height">Height
                 (
-                <span id="current-height">100px</span>
+                <span id="current-parent-height">100px</span>
                 )
               </label>
-              <input type="range" id="height" name="height" min="0" max="300" value="100" _="on input set #parent.style.height to event.target.value + 'px'
-                     then set #current-height.textContent to event.target.value + 'px'" />
+              <input type="range" id="height" name="height" min="0" max="300" value="100"
+                _="on input set #parent.style.height to event.target.value + 'px'
+                  then set #current-parent-height.textContent to event.target.value + 'px'" />
             </div>
             <div class="field">
               <label for="font-color">Font Color</label>
@@ -138,7 +142,7 @@
 
           </fieldset>
           <fieldset>
-            <legend>Inner (#bg-inner)</legend>
+            <legend>Inner (.bg-inner)</legend>
             <div class="field">
               <label for="bg-color">Color</label>
               <input type="color" id="inner-color" name="inner-color" value="#000000"
@@ -151,7 +155,8 @@
                 <span id="current-width">50px</span>
                 )
               </label>
-              <input type="range" id="inner-width" name="inner-width" min="0" max="400" value="50" _="on input set #bg-inner.style.width to event.target.value + 'px'
+              <input type="range" id="inner-width" name="inner-width" min="0" max="400" value="50"
+                _="on input set #bg-inner.style.width to event.target.value + 'px'
                   then set #current-width.textContent to event.target.value + 'px'
                 " />
             </div>

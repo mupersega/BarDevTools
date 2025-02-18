@@ -10,6 +10,7 @@ declare global {
 }
 
 window.utils = window.utils || {};
+let FIRST_LOAD = true;
 
 window.utils.updateOutput = function () {
   const targetId = 'parent';
@@ -57,7 +58,17 @@ window.utils.updateOutput = function () {
   outputTargetElt.textContent = formattedHtml;
 
   // Get computed styles and format them
-  const formattedCss = getFilteredComputedCss(targetElt);
+  let formattedCss = '';
+  if (FIRST_LOAD) {
+    setTimeout(() => {
+      formattedCss = getFilteredComputedCss(targetElt);
+      cssOutputElt.textContent = formattedCss;
+      FIRST_LOAD = false;
+    }
+    , 100);
+  } else {
+    formattedCss = getFilteredComputedCss(targetElt);
+  }
   
   // Insert formatted CSS into output
   cssOutputElt.textContent = formattedCss;
@@ -110,7 +121,7 @@ function formatNode(node: HTMLElement, level: number): string {
 const cssPropertiesToInclude: { [key: string]: string[] } = {
   'parent': [
     'position', 'display', 'flex-direction', 'justify-content', 'align-items',
-    'padding', 'width', 'height'
+    'padding', 'width', 'height', 'overflow'
   ],
   'content': [
     'display', 'flex-direction', 'justify-content', 'align-items', 'flex-wrap', 'z-index'
